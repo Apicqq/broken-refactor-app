@@ -1,4 +1,4 @@
-use broken_app::{algo, leak_buffer, normalize, sum_even};
+use broken_app::{algo, leak_buffer, normalize, sum_even, use_after_free};
 
 #[test]
 fn sums_even_numbers() {
@@ -8,9 +8,24 @@ fn sums_even_numbers() {
 }
 
 #[test]
+fn sums_empty_slice() {
+    assert_eq!(sum_even(&[]), 0);
+}
+
+#[test]
 fn counts_non_zero_bytes() {
     let data = [0_u8, 1, 0, 2, 3];
     assert_eq!(leak_buffer(&data), 3);
+}
+
+#[test]
+fn counts_empty_buffer() {
+    assert_eq!(leak_buffer(&[]), 0);
+}
+
+#[test]
+fn reads_owned_value_safely() {
+    assert_eq!(use_after_free(), 84);
 }
 
 #[test]
