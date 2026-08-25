@@ -60,6 +60,11 @@ fn normalize_all_whitespace() {
 }
 
 #[test]
+fn normalize_expanding_lowercase() {
+    assert_eq!(normalize(" İ\u{2003}RUST "), "i\u{307}rust");
+}
+
+#[test]
 fn averages_only_positive() {
     assert!((average_positive(&[-5, 5, 15]) - 10.0).abs() < f64::EPSILON);
 }
