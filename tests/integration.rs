@@ -62,3 +62,8 @@ fn average_without_positive_values_is_zero() {
     assert_eq!(average_positive(&[-5, 0]), 0.0);
     assert_eq!(average_positive(&[]), 0.0);
 }
+
+#[test]
+fn concurrent_increment_is_correct() {
+    assert_eq!(broken_app::concurrency::race_increment(1_000, 4), 4_000);
+}
