@@ -11,20 +11,18 @@ pub fn leak_buffer(input: &[u8]) -> usize {
     input.iter().filter(|byte| **byte != 0).count()
 }
 
-/// Небрежная нормализация строки: удаляем пробелы и приводим к нижнему регистру,
-/// но игнорируем повторяющиеся пробелы/табуляции внутри текста.
+/// Удаляет пробельные символы и приводит строку к нижнему регистру.
 pub fn normalize(input: &str) -> String {
-    input.replace(' ', "").to_lowercase()
+    input.split_whitespace().collect::<String>().to_lowercase()
 }
 
-/// Логическая ошибка: усредняет по всем элементам, хотя требуется учитывать
-/// только положительные. Деление на длину среза даёт неверный результат.
+/// Среднее арифметическое положительных значений.
 pub fn average_positive(values: &[i64]) -> f64 {
-    let sum: i64 = values.iter().sum();
-    if values.is_empty() {
+    let positives: Vec<i64> = values.iter().copied().filter(|value| *value > 0).collect();
+    if positives.is_empty() {
         return 0.0;
     }
-    sum as f64 / values.len() as f64
+    positives.iter().sum::<i64>() as f64 / positives.len() as f64
 }
 
 /// Возвращает сумму двух чтений одного значения.

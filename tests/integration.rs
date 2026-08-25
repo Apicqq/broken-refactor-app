@@ -1,4 +1,4 @@
-use broken_app::{algo, leak_buffer, normalize, sum_even, use_after_free};
+use broken_app::{algo, average_positive, leak_buffer, normalize, sum_even, use_after_free};
 
 #[test]
 fn sums_even_numbers() {
@@ -45,8 +45,20 @@ fn normalize_simple() {
 }
 
 #[test]
+fn normalize_all_whitespace() {
+    assert_eq!(
+        normalize(" Hello\tWorld\nRust\u{2003}! "),
+        "helloworldrust!"
+    );
+}
+
+#[test]
 fn averages_only_positive() {
-    let nums = [-5, 5, 15];
-    // Ожидается (5 + 15) / 2 = 10, но текущая реализация делит на все элементы.
-    assert!((broken_app::average_positive(&nums) - 10.0).abs() < f64::EPSILON);
+    assert!((average_positive(&[-5, 5, 15]) - 10.0).abs() < f64::EPSILON);
+}
+
+#[test]
+fn average_without_positive_values_is_zero() {
+    assert_eq!(average_positive(&[-5, 0]), 0.0);
+    assert_eq!(average_positive(&[]), 0.0);
 }
