@@ -1,0 +1,23 @@
+$ cargo +nightly miri test
+
+running 14 tests
+test algorithms_handle_boundaries ... ok
+test average_without_positive_values_is_zero ... ok
+test averages_only_positive ... ok
+test concurrent_increment_is_correct ... ok
+test counts_empty_buffer ... ok
+test counts_non_zero_bytes ... ok
+test dedup_preserves_uniques ... ok
+test fib_small_numbers ... ok
+test normalize_all_whitespace ... ok
+test normalize_expanding_lowercase ... ok
+test normalize_simple ... ok
+test reads_owned_value_safely ... ok
+test sums_empty_slice ... ok
+test sums_even_numbers ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+Doc-tests broken_app
+test result: ok. 0 passed; 0 failed
+exit code: 0
