@@ -1,0 +1,12 @@
+$ cargo check --all-targets --message-format=short
+
+warning: unused import: `std::sync::Arc`
+ --> src/concurrency.rs:2:5
+  |
+2 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: `reference-app` (lib) generated 1 warning
+Finished `dev` profile [unoptimized + debuginfo]
+
+exit code: 0

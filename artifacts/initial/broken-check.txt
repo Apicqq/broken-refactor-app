@@ -1,0 +1,31 @@
+$ cargo check --all-targets --message-format=short
+
+warning[E0133]: dereference of raw pointer is unsafe and requires unsafe block
+  --> src/lib.rs:60:15
+   |
+60 |     let val = *raw;
+   |               ^^^^ dereference of raw pointer
+
+warning[E0133]: call to unsafe function `std::boxed::Box::<T>::from_raw` is unsafe and requires unsafe block
+  --> src/lib.rs:61:10
+   |
+61 |     drop(Box::from_raw(raw));
+   |          ^^^^^^^^^^^^^^^^^^ call to unsafe function
+
+warning[E0133]: dereference of raw pointer is unsafe and requires unsafe block
+  --> src/lib.rs:62:11
+   |
+62 |     val + *raw
+   |           ^^^^ dereference of raw pointer
+
+warning: unused import: `Duration`
+ --> benches/baseline.rs:2:17
+  |
+2 | use std::time::{Duration, Instant};
+  |                 ^^^^^^^^
+
+warning: `broken-app` (lib) generated 3 warnings
+warning: `broken-app` (bench "baseline") generated 1 warning
+Finished `dev` profile [unoptimized + debuginfo]
+
+exit code: 0
