@@ -1,0 +1,22 @@
+$ RUSTFLAGS='-Zsanitizer=thread' cargo +nightly run -Zbuild-std \
+    --target x86_64-unknown-linux-gnu --bin race
+
+WARNING: ThreadSanitizer: data race
+  Read of size 8 by thread T2:
+    #0 broken_app::concurrency::race_increment::{closure#0} src/concurrency.rs:15:21
+
+  Previous write of size 8 by thread T1:
+    #0 broken_app::concurrency::race_increment::{closure#0} src/concurrency.rs:15:21
+
+  Location is global 'broken_app::concurrency::COUNTER' of size 8.
+
+  Threads T1 and T2 were created by the main thread in:
+    broken_app::concurrency::race_increment src/concurrency.rs:12:22
+
+SUMMARY: ThreadSanitizer: data race src/concurrency.rs:15:21 in broken_app::concurrency::race_increment::{closure#0}
+
+WARNING: ThreadSanitizer: data race
+  Write of size 8 by thread T2 conflicts with a write by thread T1 at src/concurrency.rs:15:21.
+
+ThreadSanitizer: reported 2 warnings
+exit code: 66

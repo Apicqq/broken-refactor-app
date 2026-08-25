@@ -1,0 +1,27 @@
+$ CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUNNER='valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=99' \
+    cargo test --test integration counts_non_zero_bytes -- --exact --nocapture
+
+running 1 test
+test counts_non_zero_bytes ... ok
+
+test result: ok. 1 passed; 0 failed; 5 filtered out
+
+==18== HEAP SUMMARY:
+==18==     in use at exit: 597 bytes in 3 blocks
+==18==   total heap usage: 655 allocs, 652 frees, 79,474 bytes allocated
+==18==
+==18== 5 bytes in 1 blocks are definitely lost in loss record 1 of 3
+==18==    at 0x4846828: malloc
+==18==    by alloc::slice::<impl [T]>::to_vec (slice.rs:376)
+==18==    by broken_app::leak_buffer (lib.rs:23)
+==18==    by integration::counts_non_zero_bytes (integration.rs:13)
+==18==
+==18== LEAK SUMMARY:
+==18==    definitely lost: 5 bytes in 1 blocks
+==18==    indirectly lost: 0 bytes in 0 blocks
+==18==      possibly lost: 48 bytes in 1 blocks
+==18==    still reachable: 544 bytes in 1 blocks
+==18==         suppressed: 0 bytes in 0 blocks
+==18== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+
+exit code: 99

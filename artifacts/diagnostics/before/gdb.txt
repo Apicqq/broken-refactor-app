@@ -1,0 +1,18 @@
+$ gdb --batch -q -ex 'break src/lib.rs:52' \
+    -ex 'run averages_only_positive --exact --nocapture' \
+    -ex 'print sum' -ex 'print values' -ex 'backtrace 3' \
+    --args target/debug/deps/integration-4e7a6fb0f30133bb
+
+Breakpoint 1 at 0x81d30: file src/lib.rs, line 52.
+
+running 1 test
+
+Thread 2 "averages_only_p" hit Breakpoint 1, broken_app::average_positive (values=...) at src/lib.rs:52
+52        sum as f64 / values.len() as f64
+$1 = 15
+$2 = &[i64] [-5, 5, 15]
+#0  broken_app::average_positive (values=...) at src/lib.rs:52
+#1  integration::averages_only_positive () at tests/integration.rs:36
+#2  integration::averages_only_positive::{closure#0} () at tests/integration.rs:33
+
+Наблюдение: сумма включает отрицательное число, а делитель учитывает все три элемента.

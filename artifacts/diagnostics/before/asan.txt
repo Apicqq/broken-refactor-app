@@ -1,0 +1,22 @@
+$ RUSTFLAGS='-Zsanitizer=address' cargo +nightly run \
+    --target x86_64-unknown-linux-gnu --bin uaf
+
+=================================================================
+ERROR: AddressSanitizer: heap-use-after-free
+READ of size 4
+    #0 broken_app::use_after_free src/lib.rs:62:11
+    #1 uaf::main (diagnostic driver)
+
+The 4-byte region was freed here:
+    #0 free
+    #1 alloc::alloc::dealloc_nonnull
+    #2 broken_app::use_after_free src/lib.rs:61:5
+
+The region was previously allocated here:
+    #0 malloc
+    #1 alloc::alloc::alloc
+
+SUMMARY: AddressSanitizer: heap-use-after-free src/lib.rs:62:11 in broken_app::use_after_free
+ABORTING
+
+exit code: 1
