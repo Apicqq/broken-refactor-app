@@ -21,7 +21,7 @@ test result: ok. 14 passed; 0 failed
 
 HEAP SUMMARY:
     in use at exit: 592 bytes in 2 blocks
-    total heap usage: 953 allocs, 951 frees, 103,819 bytes allocated
+    total heap usage: 954 allocs, 952 frees, 103,841 bytes allocated
 
 LEAK SUMMARY:
     definitely lost: 0 bytes in 0 blocks

@@ -1,0 +1,14 @@
+$ perf report --stdio --no-children --input perf.data --sort symbol --percent-limit 0.5
+
+Total Lost Samples: 0
+Samples: 14976 of event 'cpu/cycles/P'
+Event count (approx.): 73247682071
+
+Overhead  Symbol
+33.18%    broken_app::algo::slow_fib
+16.99%    broken_app::algo::slow_dedup
+16.29%    core::slice::sort::unstable::ipnsort
+13.99%    core::slice::memchr::memchr_aligned
+12.06%    broken_app::normalize
+ 6.04%    __memmove_avx_unaligned_erms
+ 0.90%    alloc::str::to_lowercase
