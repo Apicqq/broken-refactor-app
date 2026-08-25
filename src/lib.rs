@@ -13,10 +13,8 @@ pub fn leak_buffer(input: &[u8]) -> usize {
 
 /// Удаляет пробельные символы и приводит строку к нижнему регистру.
 pub fn normalize(input: &str) -> String {
-    let mut output = String::with_capacity(input.len());
-    for character in input.chars().filter(|character| !character.is_whitespace()) {
-        output.extend(character.to_lowercase());
-    }
+    let mut output = input.to_lowercase();
+    output.retain(|character| !character.is_whitespace());
     output
 }
 
